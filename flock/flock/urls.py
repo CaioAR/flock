@@ -13,9 +13,17 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.urls import re_path, include
 from django.contrib import admin
 from django.urls import path
+from flock_api import views
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+
+router.register('', views.TaskView)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    re_path(r'admin/', admin.site.urls),
+    re_path(r'', include(router.urls))
 ]
